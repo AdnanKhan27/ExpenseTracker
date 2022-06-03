@@ -16,7 +16,7 @@ function dailyReportcard(reportData, daysInMonth) {
 				data : reportData,
 				backgroundColor : 'rgba(255, 99, 132, 0.9)',
 				borderColor : 'black',
-				pointBackgroundColor: 'yellow',
+				pointBackgroundColor: '#FFD166',
 				pointHitRadius: 10,
 				pointRadius: 10,
 				borderWidth : 1,							
@@ -60,7 +60,7 @@ function dailyReportcard(reportData, daysInMonth) {
 						var label = data.datasets[tooltipItem.datasetIndex].label || '';
 
 						if (label) {
-							label += ': $';
+							label += ': ₹';
 						}
 						label += Math.round(tooltipItem.yLabel * 100) / 100;
 						return label;
@@ -133,7 +133,7 @@ function monthlyReportcard(reportData) {
 						var label = data.datasets[tooltipItem.datasetIndex].label || '';
 
 						if (label) {
-							label += ': $';
+							label += ': ₹';
 						}
 						label += Math.round(tooltipItem.yLabel * 100) / 100;
 						return label;
@@ -206,7 +206,7 @@ function yearlyReportcard(reportData, yearList) {
 						var label = data.datasets[tooltipItem.datasetIndex].label || '';
 
 						if (label) {
-							label += ': $';
+							label += ': ₹';
 						}
 						label += Math.round(tooltipItem.yLabel * 100) / 100;
 						return label;

@@ -56,6 +56,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 	/*
 	 * Function: Retrieve the data for updating the exist entry in the database.
 	 */
+	@SuppressWarnings("deprecation")
 	public ExpenseStorage retreiveForUpdate(int id) {
 		return expenseRepository.getOne(id);
 	}

@@ -17,20 +17,20 @@
 	</div>
 	<h4 id="debug"></h4>
 	<div class="container">
-		<div class="row" style="background-color: RGB(128, 128, 128)">
-			<h4 style="padding-top: 10px; padding-left: 10px; color: orange">Reports
+		<div class="row" style="background-color: #00FFAB">
+			<h4 style="padding-top: 10px; padding-left: 10px; color: #EF476F">Reports
 				Summary</h4>
 		</div>
 	</div>
 
 	<div class="container">
 		<div class="row"
-			style="border: 1px solid orange; padding-bottom: 170px;">
+			style="border: 1px solid #EF476F; padding-bottom: 170px;">
 			<div class="col-lg-4" style="padding-left: 30px;">
-				<h3 style="padding-top: 80px; padding-left: 20px; color: green">
-					<a th:href="@{/current-expense}">Current Expense</a>
+				<h3 style="padding-top: 80px; padding-left: 20px; ">
+					<a th:href="@{/current-expense}" style="text-decoration: none; color:#EF476F;">Current Expense</a>
 				</h3>
-				<h1 style="padding-top: 10px; padding-left: 20px" th:text="'$'+${currentExpense}"></h1>
+				<h1 style="padding-top: 10px; padding-left: 20px" th:text="'₹'+${currentExpense}"></h1>
 			</div>
 			<div class="col-lg-8">
 				<div class="chart-container" style="height: 25vh; width: 50vw;">
@@ -42,21 +42,21 @@
 
 	<div class="container">
 		<div class="row"
-			style="padding-top: 30px; padding-left: 100px; background-color: RGB(232, 132, 74); padding-bottom: 10px">
+			style="padding-top: 30px; padding-left: 100px; background-color: #EF476F; padding-bottom: 10px">
 			<div class="col-lg-12">
 				<p>
 					<a th:href="@{/expense-form}"
-						class="btn btn-sq-lg btn-primary font-weight-bold"> <i
+						class="btn btn-sq-lg btn-warning font-weight-bold"> <i
 						class="fa fa-user fa-5x"></i><br /> Add Expense
 					</a> <a th:href="@{/current-expense}"
-						class="btn btn-sq-lg btn-primary font-weight-bold"> <i
+						class="btn btn-sq-lg btn-warning font-weight-bold"> <i
 						class="fa fa-user fa-5x"></i><br /> Edit Expense
 					</a> <a th:href="@{/daily}"
-						class="btn btn-sq-lg btn-success font-weight-bold"> <i
+						class="btn btn-sq-lg btn-info font-weight-bold"> <i
 						class="fa fa-user fa-5x"></i><br /> Daily Reportcard
-					</a> <a th:href="@{/monthly}" class="btn btn-sq-lg btn-success font-weight-bold">
+					</a> <a th:href="@{/monthly}" class="btn btn-sq-lg btn-info font-weight-bold">
 						<i class="fa fa-user fa-5x"></i><br /> Monthly Reportcard
-					</a> <a th:href="@{/yearly}" class="btn btn-sq-lg btn-success font-weight-bold">
+					</a> <a th:href="@{/yearly}" class="btn btn-sq-lg btn-info font-weight-bold">
 						<i class="fa fa-user fa-5x"></i><br /> Yearly Reportcard
 					</a>
 				</p>
