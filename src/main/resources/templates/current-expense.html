@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="header :: header">
+</head>
+
+<body>
+	<div lang="en" th:replace="navbar :: navbar"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 text-left" style="padding-bottom: 30px">
+				<h1>
+					<strong>Current Expense</strong>
+				</h1>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<form action="#" th:action="@{/current-expense-changed}"
+			th:object="${expenseRecorder}" method="post">
+			<div class="row" style="background-color: RGB(128, 128, 128)">
+				<h4 style="padding-top: 10px; padding-left: 10px; color: orange">Detail
+					Expense Report Of</h4>
+				<div class="form-group"
+					style="padding-top: 5px; padding-left: 10px;">
+					<select class="form-control" th:field="*{selectedMonth}">
+						<option th:each="entry : *{monthMap}" th:value="${entry.key}"
+							th:text="${entry.value}"></option>
+					</select>
+				</div>
+				<div class="form-group"
+					style="padding-top: 5px; padding-left: 10px;">
+					<select class="form-control" th:field="*{selectedYear}">
+						<option th:each="year : *{yearList}" th:value="${year}"
+							th:text="${year}"></option>
+					</select>
+				</div>
+				<div class="form-group"
+					style="padding-top: 5px; padding-left: 10px;">
+					<button type="submit" class="btn btn-primary btn-block">Submit</button>
+				</div>				
+			</div>
+		</form>
+	</div>
+
+	<div class="container">
+		<table class="table table-hover">
+			<thead style="background-color: RGBA(232, 132, 74, 0.5)">
+				<tr class="text-center">
+					<th>#</th>
+					<th>Owner</th>
+					<th>Product</th>
+					<th>Cost</th>
+					<th>Date</th>
+					<th>Category</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody style="background-color: RGBA(255, 99, 132, 0.2)">
+				<tr th:each="expense: ${expenselist}" class="text-center">
+					<td th:text="${#ids.seq('')}" />
+					<td th:text="${expense.owner}" />
+					<td th:text="${expense.product}" />
+					<td th:text="'$' +${expense.cost}" />
+					<td th:text="${expense.date}" />
+					<td th:text="${expense.category}" />				
+					<td> <a class="btn btn-warning"
+					 th:href="@{/edit-expense-form(id=${expense.id})}">Update</a>
+					
+					<a class="btn btn-danger"
+					 th:href="@{/delete-expense(id=${expense.id})}">Delete</a>
+					</td> 
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

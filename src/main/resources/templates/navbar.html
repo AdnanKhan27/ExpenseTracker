@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="navbar">
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" th:href="@{/}"><span
+			style="color: white; padding-bottom: 200px; padding-top: 50px; padding-left: 20px"
+			class="text-left font-weight-bold display-5">Expense</span> <span
+			style="color: RGB(232, 132, 74); padding-bottom: 200px; padding-top: 50px"
+			class="text-left font-weight-bold display-6">Tracker</span></a>
+
+		<!-- Links -->
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" th:href="@{/}">Dashboard</a></li>
+
+			<!-- Dropdown -->
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Expenses </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{/expense-form}">Add Expense</a> <a
+						class="dropdown-item" th:href="@{/current-expense}">Edit Expense</a>
+				</div></li>
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" th:href="@{/reportcard}" id="navbardrop"
+				data-toggle="dropdown"> Reportcard </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{/daily}">Daily</a> <a
+						class="dropdown-item" th:href="@{/monthly}">Monthly</a> <a
+						class="dropdown-item" th:href="@{/yearly}">Yearly</a>
+				</div></li>
+		</ul>
+	</nav>
+
+</div>
+</html>

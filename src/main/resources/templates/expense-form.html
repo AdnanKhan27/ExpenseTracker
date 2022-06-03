@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="header :: header">
+</head>
+
+<body>
+	<div lang="en" th:replace="navbar :: navbar"></div>
+
+	<form action="#" th:action="@{/save-expense}"
+		th:object="${expenseStorage}" method="post">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 text-left" style="padding-bottom: 30px">
+					<h1 th:text="*{owner} == null ? 'Add Expense' : 'Update Expense'">
+					</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group row">
+				<label for="owner" class="col-sm-1 col-form-label">Owner</label>
+				<div class="col-sm-4">
+					<input type="hidden" class="form-control" th:field="*{id}"
+						placeholder="Enter Owner's Name"> <input type="text"
+						class="form-control" th:field="*{owner}"
+						placeholder="Enter Owner's Name">
+				</div>
+				<div class="col-lg-4" style="padding-top: 5px">
+					<p th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}"></p>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="product" class="col-sm-1 col-form-label">Product</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" th:field="*{product}"
+						placeholder="Enter Product">
+				</div>
+				<div class="col-lg-4" style="padding-top: 5px">
+					<p th:if="${#fields.hasErrors('product')}" th:errors="*{product}"></p>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="cost" class="col-sm-1 col-form-label">Cost</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" th:field="*{cost}"
+						placeholder="Enter Dollars">
+				</div>
+				<div class="col-lg-4" style="padding-top: 5px">
+					<p th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="date" class="col-sm-1 col-form-label">Date</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" th:field="*{date}"
+						placeholder="Enter Date">
+				</div>
+				<div class="col-lg-4" style="padding-top: 5px">
+					<p th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="category" class="col-sm-1 col-form-label">Category</label>
+				<div class="col-sm-4">
+					<select name="category" class="custom-select"
+						th:field="*{category}">
+						<option value="Select Category">Select Category</option>
+						<option value="Housing">Housing</option>
+						<option value="Utilities">Utilities</option>
+						<option value="Household">Household</option>
+						<option value="Groceries">Groceries</option>
+						<option value="Living">Living</option>
+						<option value="Transportation">Transportation</option>
+						<option value="Health Care">Health Care</option>
+						<option value="Personal">Personal</option>
+						<option value="Eating Out">Eating Out</option>
+						<option value="Entertainment">Entertainment</option>
+						<option value="Child">Child</option>
+						<option value="Debt Payments">Debt Payments</option>
+						<option value="Business Expenses">Business Expenses</option>
+						<option value="Savings">Savings</option>
+					</select>
+				</div>
+				<div class="col-lg-4" style="padding-top: 5px">
+					<p th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-4">
+					<p style="padding-left: 20px" class="text-danger font-weight-bold"
+						th:text="*{errorMsg} != ''? ' Error: ' + *{errorMsg}"></p>
+				</div>
+			</div>
+
+			<th:block th:if="*{owner} == null">
+				<div class="form-group row">
+					<div class="col-sm-1">
+						<button type="submit" class="btn btn-primary btn-block"
+							name="button" value="saveNew">Save</button>
+					</div>
+					<div class="col-sm-1">
+						<button type="reset" th:value="Reset"
+							class="btn btn-danger btn-block">Clear</button>
+					</div>
+
+					<div class="col-sm-3">
+						<button type="submit" class="btn btn-primary btn-block"
+							name="button" value="saveMore">Save and add another</button>
+					</div>
+				</div>
+			</th:block>
+			<th:block th:if="*{owner} != null">
+				<div class="form-group row" style="padding-left: 50px;">
+					<div class="col-sm-2">
+						<button type="submit" class="btn btn-primary btn-block"
+							name="button" value="saveUpdated">Save</button>
+					</div>
+					<div class="col-sm-2">
+						<button type="reset" th:value="Reset"
+							class="btn btn-danger btn-block">Clear</button>
+					</div>
+				</div>
+			</th:block>
+		</div>
+	</form>
+	<script th:inline="javascript">
+		$('#date').datepicker({
+			uiLibrary : 'bootstrap4'
+		});
+	</script>
+</body>
+</html>

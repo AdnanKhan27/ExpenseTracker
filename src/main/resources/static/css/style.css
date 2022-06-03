@@ -1,0 +1,14 @@
+.tile {
+	background-color: green;
+}
+
+.borders {
+	border: 2px solid black;
+}
+
+.btn-sq-lg {
+	width: 180px !important;
+	height: 180px !important;
+	color: black;
+	font-size: 30px;
+}
