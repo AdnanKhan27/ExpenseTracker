@@ -18,11 +18,15 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.hemlata.app.dao.ICostAndDateQuery;
 import com.hemlata.app.dao.ICostAndMonthQuery;
 import com.hemlata.app.dao.ICostAndYearQuery;
 import com.hemlata.app.entity.ExpenseStorage;
+import com.hemlata.app.entity.User;
 import com.hemlata.app.service.ExpenseService;
 import com.hemlata.app.support.ExpenseRecorder;
 
@@ -36,7 +40,110 @@ public class HomeController {
 	 * Function: Show the homepage and get the model to add attribute to thymeleaf template.
 	 * 
 	 */
-	@GetMapping("/")
+	long loggedInUser;
+//@Autowired
+//private ExpenseRepository xrepo;
+	
+
+@Autowired
+private com.hemlata.app.dao.UserRepository userRepository;
+
+//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+//int baltot=0;
+
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String dispform(ModelAndView modelAndView,ExpenseStorage exp)
+	{
+		//System.out.println(xrepo.catWiseamts().spliterator());
+		modelAndView.setViewName("home");
+		return "redirect:/login";
+	}
+
+
+
+
+	@RequestMapping(value="/register", method=RequestMethod.GET)
+	public ModelAndView displayRegistration(ModelAndView modelAndView, User user) {
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("register");
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public String registerUser(ModelAndView modelAndView, User user) {
+		String path = null;
+		String email=user.getEmailId();
+		System.out.println(email);
+		User existingUser = userRepository.findByEmailIdIgnoreCase(email);
+		if(existingUser != null) {
+			modelAndView.addObject("message","This email already exists!");
+			modelAndView.setViewName("error");
+		} else {
+			//user.setPassword(encoder.encode(user.getPassword()));
+			user.getPassword();
+			userRepository.save(user);
+			//sendEmail(user.getEmailId());
+			modelAndView.addObject("emailId", user.getEmailId());
+			 path="redirect:/login";
+		}
+		
+		return path;
+	}
+
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public ModelAndView displayLogin(ModelAndView modelAndView, User user) {
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ModelAndView loginUser(ModelAndView modelAndView, User user) {
+		String email=user.getEmailId();
+		User existingUser = userRepository.findByEmailIdIgnoreCase(email);
+		String pass1 = user.getPassword();
+		String pass2 = existingUser.getPassword();
+		if(existingUser != null) {
+			//if (encoder.matches(user.getPassword(), existingUser.getPassword())){
+			//if (user.getPassword() == existingUser.getPassword()){	
+			if(pass1 == pass2) {
+				// successfully logged in
+				loggedInUser=existingUser.getUserid();
+				System.out.println("user id: "+ loggedInUser);
+				modelAndView.addObject("message", "You Have Successfully Logged into Expense tracker Application!");
+				modelAndView.setViewName("home-page");
+			} else {
+				// wrong password
+				modelAndView.addObject("message", "Incorrect password. Try again.");
+				modelAndView.addObject(user.getPassword());
+				System.out.println(existingUser);
+				//System.out.p
+				System.out.println(user.getPassword());
+				System.out.println(user.getEmailId());
+				modelAndView.setViewName("home-page");
+			}
+		} else {	
+			modelAndView.addObject("message", "The email provided does not exist!");
+			modelAndView.setViewName("login");
+		}
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView displayLogout(ModelAndView modelAndView, com.hemlata.app.entity.User user) {
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+
+	@RequestMapping(value="/loginSuccess", method=RequestMethod.GET)
+	public ModelAndView loginSoccess(ModelAndView modelAndView)
+	{
+		modelAndView.setViewName("home-page");
+		return modelAndView;
+	}
+	@GetMapping("/home-page")
 	public String showHome(Model theModel) {
 		
 		int[] costList = new int[12];
